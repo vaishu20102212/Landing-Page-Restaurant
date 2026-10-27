@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: 'Baloo 2', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: #f5821f;
+  --color-primary-dark: #d96a12;
+  --color-primary-light: #fff1e2;
+
+  --color-ink: #2b1c10;
+  --color-brown: #3a2413;
+  --color-brown-dark: #291a0d;
+
+  --color-cream: #fdf7ee;
+  --color-cream-2: #f4efe6;
+  --color-sage: #e9f2e3;
+
+  --color-success: #2fae5f;
+  --color-danger: #e6533c;
+
+  --color-muted: #7a7168;
+}
+
+.dark {
+  --color-primary-light: #3a2412;
+
+  --color-ink: #f2f1ee;
+
+  --color-cream: #121212;
+  --color-cream-2: #1e1e1e;
+  --color-sage: #181818;
+
+  --color-muted: #a3a19c;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Fluid base font-size: since Tailwind's text-* and spacing (w-, h-, gap-, p-)
+     utilities are rem-based, scaling the root size scales fonts AND image/box
+     sizes together smoothly with the screen. Reaches 16px around 640px+ (same
+     as before) and ramps down to ~10px at 320px so the desktop-style
+     multi-column layout below 640/500px shrinks proportionally instead of
+     needing to stack into a separate mobile layout. */
+  font-size: clamp(14px, 1.1vw + 11px, 16px);
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background-color: var(--color-cream);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+}
+
+.container-x {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .container-x {
+    padding-inline: 2.5rem;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  padding: 0.85rem 1.75rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1.5px solid var(--color-ink);
+  color: var(--color-ink);
+}
+.btn-outline:hover {
+  background-color: var(--color-ink);
+  color: var(--color-cream);
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  color: white;
+}
+.btn-success:hover {
+  filter: brightness(0.95);
+}
+
+.nav-link {
+  position: relative;
+  padding-bottom: 0.2rem;
+  transition: color 0.25s ease;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary);
+  border-radius: 9999px;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+.nav-link:hover {
+  color: var(--color-primary);
+}
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.input-field {
+  width: 100%;
+  background-color: var(--color-cream-2);
+  border-radius: 0.9rem;
+  padding: 1rem 1.15rem;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  border: 1px solid rgba(43, 28, 16, 0.1);
+  outline: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.dark .input-field {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+.input-field::placeholder {
+  color: #9c9186;
+}
+.dark .input-field::placeholder {
+  color: #8a8580;
+}
+.input-field:focus {
+  border-color: var(--color-primary);
+  background-color: var(--color-cream);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  color: var(--color-primary);
+  font-weight: 500;
+  font-size: 0.9rem;
+  background-color: var(--color-primary-light);
+  border-radius: 9999px;
+  padding: 0.55rem 1.35rem;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e4d9c8;
+  border-radius: 999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-page-in {
+  animation: page-in 0.35s ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-page-in {
+    animation: none;
+  }
+}
